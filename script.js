@@ -18,7 +18,11 @@ function addR() {
 
 // Add a column
 function addC() {
-    alert("Clicked Add Col"); // Replace this line with your code.
+    if(numRows === 0){
+        return addR();
+    }
+    Array.from(grid.rows).forEach(row => row.insertCell());
+    numCols++;
 }
 
 // Remove a row
