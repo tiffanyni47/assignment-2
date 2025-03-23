@@ -3,9 +3,17 @@ let numRows = 0;
 let numCols = 0;
 let colorSelected; 
 
+const grid = document.getElementById("grid");
+
 // Add a row
 function addR() {
-    alert("Clicked Add Row"); // Replace this line with your code.
+    const row = grid.insertRow();
+    numRows++;
+    if (numCols === 0){
+        row.insertCell();
+        numCols++;
+    }
+    else for (let i = 0; i < numCols; i++) row.insertCell();
 }
 
 // Add a column
