@@ -9,7 +9,7 @@ const grid = document.getElementById("grid");
 function addR() {
     const row = grid.insertRow();
     numRows++;
-    if (numCols === 0){
+    if (numCols === 0){ 
         numCols++;
     }
     for (let i = 0; i < numCols; i++){
@@ -86,7 +86,11 @@ function fillU(){
 
 // Fill all cells
 function fillAll(){
-    alert("Clicked Fill All"); // Replace this line with your code.
+    Array.from(grid.rows).forEach(row => {
+        Array.from(row.cells).forEach(cell => {
+            cell.style.backgroundColor = colorSelected;
+        });
+    });
 }
 
 // Clear all cells
