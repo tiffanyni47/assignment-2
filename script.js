@@ -10,10 +10,9 @@ function addR() {
     const row = grid.insertRow();
     numRows++;
     if (numCols === 0){
-        let cell = row.insertCell();
-        cell.addEventListener("click", colorCell);  //add event: click to color the cell        numCols++;
+        numCols++;
     }
-    else for (let i = 0; i < numCols; i++){
+    for (let i = 0; i < numCols; i++){
         let cell = row.insertCell();
         cell.addEventListener("click", colorCell);
     }
@@ -24,11 +23,13 @@ function addC() {
     if(numRows === 0){
         return addR();
     }
-    Array.from(grid.rows).forEach(row => {
-        let cell = row.insertCell();
-        cell.addEventListener("click", colorCell);
-    });
-    numCols++;
+    else { 
+        Array.from(grid.rows).forEach(row => {
+            let cell = row.insertCell();
+            cell.addEventListener("click", colorCell); 
+        });
+        numCols++;
+    }
 }
 
 // Remove a row
@@ -74,7 +75,11 @@ function colorCell(event) {
 
 // Fill all uncolored cells
 function fillU(){
-    alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+    Array.from(grid).forEach(cell => {
+        if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
+            cell.style.backgroundColor = colorSelected;
+        }
+    });
 }
 
 // Fill all cells
