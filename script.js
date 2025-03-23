@@ -9,9 +9,10 @@ const grid = document.getElementById("grid");
 function addR() {
     const row = grid.insertRow();
     numRows++;
-    if (numCols === 0){ 
+    if (numCols === 0){   // if it's the first row with the first cell , then it also meant that first col is created
         numCols++;
     }
+    //when a new row is created, each row should have numbers of cell equal to current num of cols
     for (let i = 0; i < numCols; i++){
         let cell = row.insertCell();
         cell.addEventListener("click", colorCell);
@@ -20,10 +21,10 @@ function addR() {
 
 // Add a column
 function addC() {
-    if(numRows === 0){
+    if(numRows === 0){  // If there are no rows in the grid, then it is the first cell, return to addR() to add a new row (which also adds a column)
         return addR();
     }
-    else { 
+    else {   // else, add a cell to each existing row
         Array.from(grid.rows).forEach(row => {
             let cell = row.insertCell();
             cell.addEventListener("click", colorCell); 
@@ -34,8 +35,8 @@ function addC() {
 
 // Remove a row
 function removeR() {
-    if (numRows > 0){
-        grid.deleteRow(-1);
+    if (numRows > 0){ 
+        grid.deleteRow(-1); // remove the last row
         numRows--;
         if (numRows === 0){  //if there's no cell exist in the grid anymore, reset the grid
             resetGrid()
@@ -46,9 +47,9 @@ function removeR() {
 // Remove a column
 function removeC() {
     if (numCols > 0){
-        Array.from(grid.rows).forEach(row => row.deleteCell(-1));
+        Array.from(grid.rows).forEach(row => row.deleteCell(-1)); // remove the last column from each row
         numCols--;        
-        if (numCols === 0){
+        if (numCols === 0){  //if there's no cell exist in the grid anymore, reset the grid
             resetGrid();
         }
     }
@@ -77,7 +78,7 @@ function colorCell(event) {
 function fillU(){
     Array.from(grid.rows).forEach(row => {
         Array.from(row.cells).forEach(cell => {
-            if (!cell.style.backgroundColor || cell.style.backgroundColor === "white") {
+            if (!cell.style.backgroundColor || cell.style.backgroundColor === "white") {  //if the background color of the cell is current "" or white, color it with the color selected
                 cell.style.backgroundColor = colorSelected;
             }
         });
@@ -87,7 +88,7 @@ function fillU(){
 // Fill all cells
 function fillAll(){
     Array.from(grid.rows).forEach(row => {
-        Array.from(row.cells).forEach(cell => {
+        Array.from(row.cells).forEach(cell => {   // color the background color of each cell to color selected
             cell.style.backgroundColor = colorSelected;
         });
     });
@@ -95,5 +96,8 @@ function fillAll(){
 
 // Clear all cells
 function clearAll(){
-    alert("Clicked Clear All"); // Replace this line with your code.
-}
+    Array.from(grid.rows).forEach(row => {
+        Array.from(row.cells).forEach(cell => {  // color the background color of each cell to the initial color ( which is white)
+            cell.style.backgroundColor = "white";
+        });
+    });}
