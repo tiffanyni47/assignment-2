@@ -10,10 +10,13 @@ function addR() {
     const row = grid.insertRow();
     numRows++;
     if (numCols === 0){
-        row.insertCell();
-        numCols++;
+        let cell = row.insertCell();
+        cell.addEventListener("click", colorCell);  //add event: click to color the cell        numCols++;
     }
-    else for (let i = 0; i < numCols; i++) row.insertCell();
+    else for (let i = 0; i < numCols; i++){
+        let cell = row.insertCell();
+        cell.addEventListener("click", colorCell);
+    }
 }
 
 // Add a column
@@ -21,7 +24,10 @@ function addC() {
     if(numRows === 0){
         return addR();
     }
-    Array.from(grid.rows).forEach(row => row.insertCell());
+    Array.from(grid.rows).forEach(row => {
+        let cell = row.insertCell();
+        cell.addEventListener("click", colorCell);
+    });
     numCols++;
 }
 
@@ -30,7 +36,7 @@ function removeR() {
     if (numRows > 0){
         grid.deleteRow(-1);
         numRows--;
-        if (numRows === 0){
+        if (numRows === 0){  //if there's no cell exist in the grid anymore, reset the grid
             resetGrid()
         }
     }
@@ -47,7 +53,7 @@ function removeC() {
     }
 }
 
-//Reset the grid
+//Reset the grid with 0 row and 0 col
 function resetGrid(){
     grid.innerHTML = "";
     numRows = 0;
@@ -58,6 +64,12 @@ function resetGrid(){
 function selectColor(){
     colorSelected = document.getElementById("selectedColorId").value;
     console.log(colorSelected);
+    
+}
+
+//event to color the cell
+function colorCell(event) {
+    event.target.style.backgroundColor = colorSelected;
 }
 
 // Fill all uncolored cells
