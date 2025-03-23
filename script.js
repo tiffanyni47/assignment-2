@@ -27,12 +27,31 @@ function addC() {
 
 // Remove a row
 function removeR() {
-    alert("Clicked Remove Row"); // Replace this line with your code.
+    if (numRows > 0){
+        grid.deleteRow(-1);
+        numRows--;
+        if (numRows === 0){
+            resetGrid()
+        }
+    }
 }
 
 // Remove a column
 function removeC() {
-    alert("Clicked Remove Col"); // Replace this line with your code.
+    if (numCols > 0){
+        Array.from(grid.rows).forEach(row => row.deleteCell(-1));
+        numCols--;        
+        if (numCols === 0){
+            resetGrid();
+        }
+    }
+}
+
+//Reset the grid
+function resetGrid(){
+    grid.innerHTML = "";
+    numRows = 0;
+    numCols = 0;
 }
 
 // Set global variable for selected color
