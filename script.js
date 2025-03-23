@@ -75,10 +75,12 @@ function colorCell(event) {
 
 // Fill all uncolored cells
 function fillU(){
-    Array.from(grid).forEach(cell => {
-        if (cell.style.backgroundColor === "" || cell.style.backgroundColor === "white") {
-            cell.style.backgroundColor = colorSelected;
-        }
+    Array.from(grid.rows).forEach(row => {
+        Array.from(row.cells).forEach(cell => {
+            if (!cell.style.backgroundColor || cell.style.backgroundColor === "white") {
+                cell.style.backgroundColor = colorSelected;
+            }
+        });
     });
 }
 
